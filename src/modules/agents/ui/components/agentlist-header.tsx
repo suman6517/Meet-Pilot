@@ -1,11 +1,27 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { PlusIcon } from "lucide-react";
+import { PlusIcon, XCircleIcon } from "lucide-react";
 import { NewAgentDialog } from "./new-agent-dialog";
 import { useState } from "react";
+import { useAgentFilers } from "../../hooks/use-agents-filter";
+import { AgentSearchFilter } from "./agent-search-filter";
+import { DEFAULT_PAGE } from "@/constants";
+
+
+//http://localhost:3000/agents?search=Name
 
 export const AgentListHeader = () =>{
+    const [filters , setFilters] = useAgentFilers();
     const [isDilogOpen , setiisDilogOpen] = useState(false);
+
+    const isAnyFilterModified = !!filters.search;
+    const onClearFilters = () =>{
+        setFilters({
+            search:"",
+            page:DEFAULT_PAGE,
+        });
+    }
+
     return(
         <>
         <NewAgentDialog open={isDilogOpen} onOpenChange={setiisDilogOpen}/>
@@ -16,6 +32,15 @@ export const AgentListHeader = () =>{
                     <PlusIcon />
                     New Agent
                 </Button>
+            </div>
+            <div className="flex items-center gap-x-2">
+                <AgentSearchFilter/>
+                {isAnyFilterModified && (
+                    <Button variant="outline" size="sm" onClick={onClearFilters}> 
+                        <XCircleIcon/>
+                        Clear
+                    </Button>
+                )}
             </div>
         </div>
         </>

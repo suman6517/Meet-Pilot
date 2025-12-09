@@ -38,7 +38,7 @@ export const columns: ColumnDef<AgentGetOne>[] = [
     cell:({row}) =>(
         <Badge variant="outline" className="flex items-center [&>svg]:size-4">
             <VideoIcon className="text-blue-700"/>
-            5 metings 
+            {row.original.meetingCount} {row.original.meetingCount === 1 ? "metting" : "mettings"} 
         </Badge>
     )
   }
