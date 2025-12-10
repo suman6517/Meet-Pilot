@@ -1,5 +1,5 @@
 "use client";
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import {useSuspenseQuery } from "@tanstack/react-query";
 import { useTRPC } from "@/trpc/client";
 import { LoadingState } from "@/components/loading-state";
 import { ErrorState } from "@/components/error-state";
@@ -9,38 +9,24 @@ import { EmptyState } from "@/components/empty-state";
 import { useAgentFilers } from "../../hooks/use-agents-filter";
 import { DEFAULT_PAGE_SIZE } from "@/constants";
 import { DataPagination } from "../components/data-pagination";
+import { useRouter } from "next/navigation";
 
 
 export const AgentView =() =>{
+    const router = useRouter(); 
     const [filters , setFilters] = useAgentFilers();
     const trpc = useTRPC();
     const {data} = useSuspenseQuery(trpc.agents.getMany.queryOptions({
         ...filters,
     }));
 
-    
-    // if(isLoading)
-    // {
-    //     return(
-    //       <LoadingState
-    //       title="Loading Agents"
-    //       description="This may take a few second"
-    //       /> 
-    //     );
-    // }
-
-    // if(isError)
-    // {
-    //     return(
-    //         <ErrorState 
-    //         title="Failed to load agents"
-    //         description="Please try again later"
-    //         />
-    //     )
-    // } 
     return(
         <div className="flex-1 pb-4 px-4 md:px-8 flex flex-col gap-y-4 ">
-            <DataTable data={data.items} columns={columns}/>
+            <DataTable 
+            data={data.items} 
+            columns={columns}
+            onRowClick={(row) => router.push(`/agents/${row.id}`)}
+            />
             <DataPagination
             page={filters.page}
             totalPages={data.totalPages}
@@ -56,19 +42,19 @@ export const AgentView =() =>{
     );
 };
 
-export const AgenViewLoading = ()=>{
+export const AgentViewLoading = ()=>{
     return(
           <LoadingState
-          title="Loading Agents"
+          title="Loading Agent"
           description="This may take a few second"
           /> 
     );
 }
 
-export const AgenViewError = ()=>{
+export const AgentViewError = ()=>{
     return(
         <ErrorState 
-            title="Failed to load agents"
+            title="Error Loading Agent"
             description="Please try again later"
             />
     );
