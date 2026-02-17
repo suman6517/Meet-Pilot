@@ -9,8 +9,8 @@ export const MeetingsView =() =>{
     const trpc = useTRPC();
     const {data} = useSuspenseQuery(trpc.meetings.getMany.queryOptions({}));
     return(
-        <div>
-            {JSON.stringify(data)}
+        <div className="overflow-x-scroll">
+           {JSON.stringify(data)}
         </div>
     );
 };
@@ -18,7 +18,7 @@ export const MeetingsView =() =>{
 export const MeetingViewLoading = ()=>{
     return(
           <LoadingState
-          title="Loading Meetingt"
+          title="Loading Meeting"
           description="This may take a few second"
           /> 
     );
