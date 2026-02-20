@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useAgentFilers } from "../../hooks/use-agents-filter";
 import { AgentSearchFilter } from "./agent-search-filter";
 import { DEFAULT_PAGE } from "@/constants";
-
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 //http://localhost:3000/agents?search=Name
 
@@ -33,6 +33,8 @@ export const AgentListHeader = () =>{
                     New Agent
                 </Button>
             </div>
+
+            <ScrollArea>
             <div className="flex items-center gap-x-2">
                 <AgentSearchFilter/>
                 {isAnyFilterModified && (
@@ -42,6 +44,8 @@ export const AgentListHeader = () =>{
                     </Button>
                 )}
             </div>
+            <ScrollBar orientation="horizontal"/>
+            </ScrollArea>
         </div>
         </>
     );
