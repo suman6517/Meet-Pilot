@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { VideoIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { useConfirm } from "../../hooks/use-confirm";
+import { useConfirm } from "@/hooks/use-confirm";   // This got Modified
 import{useState} from "react";
 import { UpdateAgentDialog } from "../components/update-agent-dialog";
 
