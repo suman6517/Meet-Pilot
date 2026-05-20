@@ -13,6 +13,8 @@ import { BookOpenTextIcon,
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { formatDuration } from "@/lib/utils";
+import { Transcript } from "./transcript";
+import { ChatProvider } from "./chat-provider";
 
 
 interface Props {
@@ -64,7 +66,18 @@ export const CompletedState = ({data} : Props) =>
                         <ScrollBar orientation="horizontal"/>
                     </ScrollArea>
                 </div>
-                <TabsContent value="recording">
+
+
+                <TabsContent value="chat">
+                   <ChatProvider meetingId={data.id} meetingName={data.name}/>
+
+                </TabsContent>
+
+                <TabsContent value="transcript">
+                    <Transcript meetingId = {data.id}/>
+
+                </TabsContent>
+                <TabsContent value="recording">x
                     <div className="bg-white rounded-lg border px-4 py-5">
                         <video
                         src={data.recordingUrl!}
